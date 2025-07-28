@@ -1,12 +1,12 @@
 Создаём виртуальное окружение (venv):
-    python -m venv myenv
+    python -m venv venv
 
 Активируем виртуальное окружение:
     Windiws:
-    myenv\Scripts\activate
+    venv\Scripts\activate
 
     Linux/Mac:
-    source myenv/bin/activate
+    source venv/bin/activate
 
 Установите библиотеки из requirements.txt:
     pip install -r requirements.txt
