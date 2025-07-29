@@ -2,6 +2,8 @@ import telebot
 from telebot import types
 import json
 from .defs import *
+# give_response_json(json_name="user_states", json_key="", json_message={"action": call.data, "waiting_for_input": True})
+
 
 class Buttons:
     def __init__(self, bot: telebot.TeleBot):
@@ -11,13 +13,17 @@ class Buttons:
 
     def type_button(self, call):
 
-
         # self.bot.send_message(call.message.chat.id, "Я пока не умею работать с кнопками")
         # call.data
         if call.data == "whitelist_add_options":
             self.whitelist.message_type_id(call)
-        elif call.data == "ID" or "link" or "message":
-            self.bot.send_message(call.message.chat.id, call.data)
+
+        elif call.data == "ID" or call.data == "link" or call.data == "message":
+            # give_response_json(json_name="user_states", json_key=call.message.chat.id,
+            #                    json_message={})
+            give_response_json(json_name="user_states", json_key=call.message.chat.id,
+                               json_message={"action": call.data, "waiting_for_input": True})
+            self.bot.send_message(call.message.chat.id, "Ожидаю сообщение")
 
         self.bot.edit_message_reply_markup(
             chat_id=call.message.chat.id,

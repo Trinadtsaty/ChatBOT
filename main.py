@@ -1,5 +1,5 @@
 from secret.bot.bot_key import token
-from bot.handlers import Start
+from bot.handlers import Start, Handlers_Text_Analysis
 from bot.buttons import Buttons
 import telebot
 import json
@@ -11,6 +11,7 @@ class TelegramBot_Chat:
 
         self.start_bot = Start(self.bot)
         self.buttons = Buttons(self.bot)
+        self.echo_handler = Handlers_Text_Analysis(self.bot)
 
         self.register_handlers()
 
@@ -24,12 +25,11 @@ class TelegramBot_Chat:
         def handle_inline_buttons(call):
             self.buttons.type_button(call)
 
-        # @self.bot.message_handler(func=lambda message: True, content_types=['text'])
-        # def echo(message):
-        #     # Игнорируем команды, чтобы не пересекаться с start_handler
-        #     if not message.text.startswith('/'):
-        #         self.echo_handler.handle(message)
-
+        @self.bot.message_handler(func=lambda message: True, content_types=['text'])
+        def echo(message):
+            # Игнорируем команды, чтобы не пересекаться с start_handler
+            if not message.text.startswith('/'):
+                self.echo_handler.handle(message)
 
     def run(self):
         print("Бот запущен")

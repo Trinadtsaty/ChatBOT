@@ -56,7 +56,7 @@ def give_response_json(json_name: str, json_key: str, json_message):
             return
 
     # Добавляем или обновляем ключ с сообщением
-    data[json_key] = json_message
+    data[str(json_key)] = json_message
 
     # Сохраняем обновлённые данные обратно в файл
     try:
