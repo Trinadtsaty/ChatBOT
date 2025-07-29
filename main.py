@@ -32,6 +32,19 @@ class TelegramBot_Chat:
                 self.echo_handler.handle(message)
 
     def run(self):
+        db_files = [
+            "DB/user_states.json",
+            "DB/whitelist.json"
+        ]
+        for file_path in db_files:
+            # Создаем директорию DB, если ее нет
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+            if not os.path.exists(file_path):
+                # Создаем файл с пустым JSON-объектом {}
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    json.dump({}, f, ensure_ascii=False, indent=4)
+
         print("Бот запущен")
         self.bot.infinity_polling()
 

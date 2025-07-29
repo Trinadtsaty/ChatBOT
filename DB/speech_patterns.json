@@ -7,7 +7,7 @@
     "response": "Выберите тип информации:",
      "keyboard": [
        {"name": "ID группы", "callback_data": "ID" },
-       {"name": "Ссылка-приглашение", "callback_data": "link" },
+       {"name": "Ссылка-приглашение", "callback_data": "link", "url": "https://t.me/{bot_username}?startgroup=foo&admin=post_messages"},
        {"name": "Сообщение из группы", "callback_data": "message" }
      ]
   },

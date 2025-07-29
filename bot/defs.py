@@ -5,14 +5,20 @@ import os
 import shutil
 
 # Создание кнопки под сообщением
-def create_buttons_json(json_name: str, json_type: str):
+def create_buttons_json(json_name: str, json_type: str, bot):
     with open(f'DB/{json_name}.json', 'r', encoding='utf-8') as f:
         SPEECH_PATTERNS = json.load(f)
     arr = SPEECH_PATTERNS[json_type]["keyboard"]
 
     markup = types.InlineKeyboardMarkup()
     for item in arr:
-        button = types.InlineKeyboardButton(item["name"], callback_data=item["callback_data"])
+        button_params = {
+            'text': item["name"],
+            'callback_data': item["callback_data"]
+        }
+        if "url" in item:
+            button_params['url'] = item["url"].format(bot_username=bot.get_me().username)
+        button = types.InlineKeyboardButton(**button_params)
         markup.row(button)
     return markup
 
@@ -24,13 +30,17 @@ def get_response_json(json_name: str, json_key: str, is_retry: bool = False):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             SPEECH_PATTERNS = json.load(f)
-        return SPEECH_PATTERNS[json_key]['response']
+        return SPEECH_PATTERNS[str(json_key)]
+
     except (json.JSONDecodeError, IOError, KeyError):
+
         if not is_retry:
             # Попытка заменить повреждённый файл на резервную копию
             if os.path.exists(backup_path):
+
                 try:
                     shutil.copyfile(backup_path, file_path)
+
                 except IOError:
                     # Не удалось заменить файл — возвращаем None или выбрасываем ошибку
                     return None
