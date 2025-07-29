@@ -1,22 +1,8 @@
 import telebot
 from telebot import types
 import json
+from .defs import *
 
-def create_buttons_json(json_name: str, json_type: str):
-    with open(f'DB/{json_name}.json', 'r', encoding='utf-8') as f:
-        SPEECH_PATTERNS = json.load(f)
-    arr = SPEECH_PATTERNS[json_type]["keyboard"]
-
-    markup = types.InlineKeyboardMarkup()
-    for item in arr:
-        button = types.InlineKeyboardButton(item["name"], callback_data=item["callback_data"])
-        markup.row(button)
-    return markup
-
-def get_response_json(json_name: str, json_type: str):
-    with open(f'DB/{json_name}.json', 'r', encoding='utf-8') as f:
-        SPEECH_PATTERNS = json.load(f)
-    return SPEECH_PATTERNS[json_type]['response']
 
 class Start:
     def __init__(self, bot: telebot.TeleBot):
