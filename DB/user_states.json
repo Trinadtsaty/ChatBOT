@@ -1,7 +1,7 @@
 {
     "830646409": {
         "states": "give_id_group",
-        "action": "link",
+        "action": "message",
         "waiting_for_input": true
     }
 }

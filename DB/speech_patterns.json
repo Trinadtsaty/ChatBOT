@@ -1,7 +1,7 @@
 {
   "start_privat": {
     "response": "Привет, {username}! Добро пожаловать в чат бота! \nСейчас я могу добавить группу в белый список, чтобы отвечать тебе и в ней.\nДля этого тебе нужно нажать на копку под данным сообщением и действовать согласно инструкции",
-    "keyboard": [{"name": "Добавить в белый лист", "callback_data": "whitelist_add_options" }]
+    "keyboard": [{"name": "Добавить в белый лист", "callback_data": "whitelist_add_options" },{"name": "Посчитать Медиану и среднее арифметическое", "callback_data": "median_arithmetic_mean"}]
   },
   "get_id": {
     "response": "Выберите тип информации:",
@@ -11,8 +11,15 @@
        {"name": "Сообщение из группы", "callback_data": "message" }
      ]
   },
-  "help": {
-    "response": "Вот список доступных команд: /start, /help",
-    "keyboard": [["Помощь", "Настройки"]]
+  "help_privat": {
+    "response": "Привет, я бот, вот что я умею:\n1) Я могу добавить группу в белый список, чтобы отвечать тебе там;\n2) Считать медиану и среднее арифметическое.\nДля того, чтобы воспользоваться данными функциями, нажми на кнопку под сообщением или введи команду:/start, /counting, /whitelist",
+    "keyboard": [{"name": "Добавить в белый лист", "callback_data": "whitelist_add_options" },{"name": "Посчитать Медиану и среднее арифметическое", "callback_data": "median_arithmetic_mean"}]
+  },
+  "help_chat": {
+    "response": "Вот список доступных команд: /start, /help"
+  },
+  "unknown_command_privat": {
+    "response": "Извини, я незнаком с командой <code>{comand}</code>. Чтобы узнать что я могу напиши /help. или нажми на кнопку под сообщением",
+    "keyboard": [{"name": "Помощь", "callback_data": "help_privat" }]
   }
 }
