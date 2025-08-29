@@ -1,7 +1,3 @@
 {
-    "830646409": {
-        "states": "give_id_group",
-        "action": "message",
-        "waiting_for_input": true
-    }
+    "830646409": null
 }

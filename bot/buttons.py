@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 # from bot.handlers import Start, Handlers_Text_Analysis, Help, Error, Median_Arithmetic_Mean
 from .defs import *
+from .math import Median, ArithmeticMean, MedianAndArithmeticMean
 # give_response_json(json_name="user_states", json_key="", json_message={"action": call.data, "waiting_for_input": True})
 
 
@@ -17,6 +18,10 @@ class Buttons:
         from bot.handlers import Help, Median_Arithmetic_Mean
         self.help = Help(self.bot)
         self.median_arithmetic = Median_Arithmetic_Mean(self.bot)
+
+        self.median = Median(self.bot)
+        self.mean = ArithmeticMean(self.bot)
+        self.together_mean_median = MedianAndArithmeticMean(self.bot)
 
 
     def type_button(self, call):
@@ -38,6 +43,16 @@ class Buttons:
 
         elif call.data == "median_arithmetic_mean":
             self.median_arithmetic.handle(call.message)
+
+        elif call.data == "median":
+            self.median.calculations(call.message)
+
+
+        elif call.data == "arithmetic_mean":
+            self.mean.calculations(call.message)
+
+        elif call.data == "together_mean_median":
+            self.together_mean_median.calculations(call.message)
 
 
 

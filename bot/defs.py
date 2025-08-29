@@ -4,6 +4,38 @@ import json
 import os
 import shutil
 
+# Ищу в сообщение числа.
+def search_numbers(message:str):
+    answer = []
+    numbers = ''
+    for i, item in enumerate(message):
+        if item.isdigit():
+            numbers+=item
+        elif item == '.' and numbers != '':
+            if item not in numbers:
+                numbers+=item
+            elif numbers != '':
+                answer.append(float(numbers))
+                numbers = ''
+        elif numbers != '':
+            answer.append(float(numbers))
+            numbers = ''
+    if numbers != '':
+        answer.append(float(numbers))
+    return answer
+
+# Выводим массив в текст, убирая дробную часть у чисел, если она равна 0
+def list_in_str(arr:list):
+    result = []
+    for num in arr:
+        if num.is_integer():  # Проверяем, что дробная часть равна 0
+            result.append(str(int(num)))  # Добавляем целую часть как int
+        else:
+            result.append(str(num))  # Добавляем число целиком
+    return " ".join(result)
+
+
+
 # Создание кнопки под сообщением
 def create_buttons_json(json_name: str, json_type: str, bot):
     with open(f'DB/{json_name}.json', 'r', encoding='utf-8') as f:
@@ -90,3 +122,4 @@ def give_response_json(json_name: str, json_key: str, json_message):
     except IOError:
         print("Ошибка создания резервной копии файла.")
         return
+
